@@ -1,3 +1,4 @@
+import java.util.*;
 import java.util.ArrayList;
 
 public class Payroll {
@@ -22,7 +23,29 @@ public class Payroll {
                 employeeList.remove(employeeToremove);
                 System.out.println(employeeToremove);
             }else{
-                System.out.println("Mo one is removed");
+                System.out.println("No one is removed");
+            }
+        }
+    }
+    public Employee findEmployeeById(int Empid){
+        for(Employee employee: employeeList){
+            if(employee.getEmpid() == Empid){
+                return employee;
+            }
+        }
+        return null;
+    }
+
+    // leave management
+    public void apply_forleave(int Empid, int days){
+        Employee employee = findEmployeeById(Empid);
+        if(employee != null){
+            int available_leave = employee.getAvailableLeaves();
+            if(days <= available_leave){
+                employee.useLeaves(days);
+                System.out.println(employee.getName() + " has taken " + days + " days leave.");
+            }else{
+                System.out.println("Insufficient leave balance");
             }
         }
     }
