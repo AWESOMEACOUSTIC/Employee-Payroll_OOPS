@@ -36,6 +36,7 @@ public class Payroll {
         return null;
     }
 
+
     // leave management
     public void apply_forleave(int Empid, int days){
         Employee employee = findEmployeeById(Empid);
