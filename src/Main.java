@@ -21,5 +21,6 @@ public class Main {
         payrollsys.addEmployee((emp2));
         payrollsys.displayEmployee();
         payrollsys.apply_forleave(22101,15);
+        payrollsys.apply_forleave(223101,20);
     }
 }
