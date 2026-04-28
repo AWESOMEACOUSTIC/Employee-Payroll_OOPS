@@ -1,27 +1,44 @@
 public abstract class Employee {
-    private String Name;
-    private int Empid;
+    private String name;
+    private int empId;
+    private int leaveBalance = 21;
 
+    // Composition: Strategy references
+    protected TaxStrategy taxStrategy;
+    protected BonusStrategy bonusStrategy;
 
-    public Employee(String Name, int Empid){
-        this.Name = Name;
-        this.Empid = Empid;
+    public Employee(String name, int empId, TaxStrategy ts, BonusStrategy bs) {
+        this.name = name;
+        this.empId = empId;
+        this.taxStrategy = ts;
+        this.bonusStrategy = bs;
     }
 
-    // getter and setter method --> Encapsulation : User need to call this methods to get the details which is increasing the security
-    public String getName(){
-        return Name;
+    // Setters allow changing strategy at runtime (e.g., a promotion)
+    public void setTaxStrategy(TaxStrategy ts) { this.taxStrategy = ts; }
+    public void setBonusStrategy(BonusStrategy bs) { this.bonusStrategy = bs; }
+
+    public abstract double getBaseSalary();
+
+    public double calculateFinalPay() {
+        double base = getBaseSalary();
+        return base + bonusStrategy.calculateBonus(base) - taxStrategy.calculateTax(base);
     }
 
-    public int getEmpid(){
-        return Empid;
+    public boolean requestLeave(int days) {
+        if (days <= leaveBalance) {
+            leaveBalance -= days;
+            return true;
+        }
+        return false;
     }
 
-    public abstract double calculateSalary();        // abstract method is made without any body. Whichever class will call the method will have it's body in it.
+    public String getName() { return name; }
+    public int getEmpId() { return empId; }
 
-    // use of polymorphism due to multiple use of same methods
     @Override
-    public String toString(){
-        return "Employee[Name="+Name + ", Employee id="+Empid + ", Salary="+calculateSalary()+"]";
+    public String toString() {
+        return String.format("ID: %-5d | Name: %-10s | Final Pay: $%-10.2f | Leaves: %d",
+                empId, name, calculateFinalPay(), leaveBalance);
     }
 }
