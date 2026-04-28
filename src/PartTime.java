@@ -1,15 +1,15 @@
-public class PartTime extends Employee{
+public class PartTime extends Employee {
+    private double hourlyRate;
     private int hoursWorked;
-    private double hoursRate;
 
-    public PartTime(String Name, int Empid, int hoursRate, int hoursWorked){
-        super(Name, Empid);
-        this.hoursRate = hoursRate;
+    public PartTime(String name, int empId, double hourlyRate, int hoursWorked, TaxStrategy ts, BonusStrategy bs) {
+        super(name, empId, ts, bs);
+        this.hourlyRate = hourlyRate;
         this.hoursWorked = hoursWorked;
     }
 
     @Override
-    public double calculateSalary(){
-        return (hoursWorked*hoursRate);
+    public double getBaseSalary() {
+        return hourlyRate * hoursWorked;
     }
 }

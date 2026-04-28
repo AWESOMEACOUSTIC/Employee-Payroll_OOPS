@@ -1,13 +1,13 @@
-public class FullTime extends Employee{
-    private double monthlySal;
+public class FullTime extends Employee {
+    private double monthlySalary;
 
-    public FullTime(String Name, int Empid, double monthlySal){
-        super(Name,Empid);   // if you want to use the constructor of the parent class then we use super keyword
-        this.monthlySal = monthlySal;
+    public FullTime(String name, int empId, double monthlySalary, TaxStrategy ts, BonusStrategy bs) {
+        super(name, empId, ts, bs);
+        this.monthlySalary = monthlySalary;
     }
 
     @Override
-    public double calculateSalary(){
-        return monthlySal;
+    public double getBaseSalary() {
+        return monthlySalary;
     }
 }
